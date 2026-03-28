@@ -53,6 +53,16 @@ func NewOrder(id, customerID string, totalAmount int64, status OrderStatus) *Ord
 	}
 }
 
+func ReconstructOrder(id, customerID string, totalAmount int64, status OrderStatus, completedAt time.Time) *Order {
+	return &Order{
+		id:          id,
+		customerID:  customerID,
+		totalAmount: totalAmount,
+		status:      status,
+		completedAt: completedAt,
+	}
+}
+
 func (o *Order) ID() string             { return o.id }
 func (o *Order) CustomerID() string     { return o.customerID }
 func (o *Order) TotalAmount() int64     { return o.totalAmount }
