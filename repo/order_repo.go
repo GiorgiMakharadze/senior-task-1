@@ -68,9 +68,17 @@ func (r *OrderRepo) UpdateMut(order *domain.Order) *contracts.Mutation {
 			for _, c := range order.Changes.Changes() {
 				switch c.Field {
 				case "status":
-					row.Status = c.Value.(string)
+					v, ok := c.Value.(string)
+					if !ok {
+						return fmt.Errorf("update order %s: status change value is %T, expected string", order.ID(), c.Value)
+					}
+					row.Status = v
 				case "completed_at":
-					row.CompletedAt = c.Value.(time.Time)
+					v, ok := c.Value.(time.Time)
+					if !ok {
+						return fmt.Errorf("update order %s: completed_at change value is %T, expected time.Time", order.ID(), c.Value)
+					}
+					row.CompletedAt = v
 				}
 			}
 			return nil

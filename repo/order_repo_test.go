@@ -63,7 +63,6 @@ func TestOrderRepo_CompletedAtSurvivesRoundTrip(t *testing.T) {
 		t.Fatalf("complete: %v", err)
 	}
 
-	// Apply update mutation to persist the change.
 	if err := r.UpdateMut(retrieved).Apply(context.Background()); err != nil {
 		t.Fatalf("apply update: %v", err)
 	}
